@@ -9,6 +9,15 @@ function App() {
   })
   const [newUrl, setNewUrl] = useState('')
   const [newName, setNewName] = useState('')
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   useEffect(() => {
     localStorage.setItem('urls', JSON.stringify(urls))
@@ -40,8 +49,8 @@ function App() {
       minHeight: '100vh'
     }}>
       <h1 style={{ 
-        fontSize: 'clamp(24px, 5vw, 32px)', 
-        marginBottom: '20px', 
+        fontSize: isMobile ? '24px' : '32px', 
+        marginBottom: '30px', 
         color: '#333' 
       }}>
         URL整理アプリ
@@ -49,10 +58,10 @@ function App() {
       
       <div style={{ 
         display: 'flex', 
-        flexDirection: 'column',
+        flexDirection: isMobile ? 'column' : 'row',
         gap: '10px', 
         marginBottom: '30px',
-        padding: '15px',
+        padding: isMobile ? '15px' : '20px',
         backgroundColor: '#f5f5f5',
         borderRadius: '8px'
       }}>
@@ -62,7 +71,8 @@ function App() {
           value={newName}
           onChange={(e) => setNewName(e.target.value)}
           style={{
-            width: '100%',
+            flex: isMobile ? 'none' : 1,
+            width: isMobile ? '100%' : 'auto',
             padding: '12px 15px',
             fontSize: '16px',
             border: '1px solid #ddd',
@@ -76,7 +86,8 @@ function App() {
           value={newUrl}
           onChange={(e) => setNewUrl(e.target.value)}
           style={{
-            width: '100%',
+            flex: isMobile ? 'none' : 2,
+            width: isMobile ? '100%' : 'auto',
             padding: '12px 15px',
             fontSize: '16px',
             border: '1px solid #ddd',
@@ -87,7 +98,7 @@ function App() {
         <button 
           onClick={addUrl}
           style={{
-            width: '100%',
+            width: isMobile ? '100%' : 'auto',
             padding: '12px 25px',
             fontSize: '16px',
             backgroundColor: '#007bff',
@@ -108,9 +119,11 @@ function App() {
             key={item.id}
             style={{
               display: 'flex',
-              flexDirection: 'column',
-              gap: '10px',
-              padding: '15px',
+              flexDirection: isMobile ? 'column' : 'row',
+              alignItems: isMobile ? 'stretch' : 'center',
+              justifyContent: 'space-between',
+              gap: isMobile ? '10px' : '0',
+              padding: '15px 20px',
               backgroundColor: 'white',
               border: '1px solid #e0e0e0',
               borderRadius: '6px'
@@ -124,6 +137,7 @@ function App() {
                 fontSize: '16px',
                 color: '#007bff',
                 textDecoration: 'none',
+                flex: isMobile ? 'none' : 1,
                 wordBreak: 'break-all'
               }}
             >
@@ -132,14 +146,14 @@ function App() {
             <button 
               onClick={() => deleteUrl(item.id)}
               style={{
-                padding: '8px 15px',
+                width: isMobile ? '100%' : 'auto',
+                padding: isMobile ? '10px' : '6px 15px',
                 fontSize: '14px',
                 backgroundColor: '#dc3545',
                 color: 'white',
                 border: 'none',
                 borderRadius: '4px',
-                cursor: 'pointer',
-                alignSelf: 'flex-start'
+                cursor: 'pointer'
               }}
             >
               削除
