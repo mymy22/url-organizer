@@ -54,10 +54,12 @@ function App() {
     }}>
       <div style={{ width: '100%', maxWidth: '800px' }}>
         <h1 style={{ 
-          fontSize: isMobile ? '24px' : '32px', 
+          fontSize: isMobile ? '28px' : '36px', 
           marginBottom: '30px', 
-          color: '#333',
-          textAlign: 'center'
+          color: '#1a1a1a',
+          fontWeight: '700',
+          textAlign: 'center',
+          letterSpacing: '-0.5px'
         }}>
           URL整理アプリ
         </h1>
