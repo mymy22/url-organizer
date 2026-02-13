@@ -32,14 +32,27 @@ function App() {
   }
 
   return (
-    <div style={{ maxWidth: '800px', margin: '0 auto', padding: '40px 20px', fontFamily: 'system-ui, sans-serif' }}>
-      <h1 style={{ fontSize: '32px', marginBottom: '30px', color: '#333' }}>URL整理アプリ</h1>
+    <div style={{ 
+      maxWidth: '800px', 
+      margin: '0 auto', 
+      padding: '20px', 
+      fontFamily: 'system-ui, sans-serif',
+      minHeight: '100vh'
+    }}>
+      <h1 style={{ 
+        fontSize: 'clamp(24px, 5vw, 32px)', 
+        marginBottom: '20px', 
+        color: '#333' 
+      }}>
+        URL整理アプリ
+      </h1>
       
       <div style={{ 
         display: 'flex', 
+        flexDirection: 'column',
         gap: '10px', 
         marginBottom: '30px',
-        padding: '20px',
+        padding: '15px',
         backgroundColor: '#f5f5f5',
         borderRadius: '8px'
       }}>
@@ -49,11 +62,12 @@ function App() {
           value={newName}
           onChange={(e) => setNewName(e.target.value)}
           style={{
-            flex: 1,
-            padding: '10px 15px',
+            width: '100%',
+            padding: '12px 15px',
             fontSize: '16px',
             border: '1px solid #ddd',
-            borderRadius: '4px'
+            borderRadius: '4px',
+            boxSizing: 'border-box'
           }}
         />
         <input 
@@ -62,23 +76,26 @@ function App() {
           value={newUrl}
           onChange={(e) => setNewUrl(e.target.value)}
           style={{
-            flex: 2,
-            padding: '10px 15px',
+            width: '100%',
+            padding: '12px 15px',
             fontSize: '16px',
             border: '1px solid #ddd',
-            borderRadius: '4px'
+            borderRadius: '4px',
+            boxSizing: 'border-box'
           }}
         />
         <button 
           onClick={addUrl}
           style={{
-            padding: '10px 25px',
+            width: '100%',
+            padding: '12px 25px',
             fontSize: '16px',
             backgroundColor: '#007bff',
             color: 'white',
             border: 'none',
             borderRadius: '4px',
-            cursor: 'pointer'
+            cursor: 'pointer',
+            fontWeight: '600'
           }}
         >
           追加
@@ -91,13 +108,12 @@ function App() {
             key={item.id}
             style={{
               display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: '15px 20px',
+              flexDirection: 'column',
+              gap: '10px',
+              padding: '15px',
               backgroundColor: 'white',
               border: '1px solid #e0e0e0',
-              borderRadius: '6px',
-              transition: 'box-shadow 0.2s'
+              borderRadius: '6px'
             }}
           >
             <a 
@@ -108,7 +124,7 @@ function App() {
                 fontSize: '16px',
                 color: '#007bff',
                 textDecoration: 'none',
-                flex: 1
+                wordBreak: 'break-all'
               }}
             >
               {item.name}
@@ -116,13 +132,14 @@ function App() {
             <button 
               onClick={() => deleteUrl(item.id)}
               style={{
-                padding: '6px 15px',
+                padding: '8px 15px',
                 fontSize: '14px',
                 backgroundColor: '#dc3545',
                 color: 'white',
                 border: 'none',
                 borderRadius: '4px',
-                cursor: 'pointer'
+                cursor: 'pointer',
+                alignSelf: 'flex-start'
               }}
             >
               削除
