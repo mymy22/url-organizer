@@ -40,18 +40,22 @@ function App() {
     setUrls(urls.filter((item: any) => item.id !== id))
   }
 
-  return (
+return (
     <div style={{ 
       maxWidth: '800px', 
       margin: '0 auto', 
       padding: '20px', 
       fontFamily: 'system-ui, sans-serif',
-      minHeight: '100vh'
+      minHeight: '100vh',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center'
     }}>
       <h1 style={{ 
         fontSize: isMobile ? '24px' : '32px', 
         marginBottom: '30px', 
-        color: '#333' 
+        color: '#333',
+        textAlign: 'center'
       }}>
         URL整理アプリ
       </h1>
