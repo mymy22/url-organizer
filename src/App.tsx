@@ -10,6 +10,9 @@ function App() {
   const [newUrl, setNewUrl] = useState('')
   const [newName, setNewName] = useState('')
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
+  const [isDark, setIsDark] = useState(
+    window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+  )
 
   useEffect(() => {
     const handleResize = () => {
@@ -17,6 +20,15 @@ function App() {
     }
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  useEffect(() => {
+    const darkModeQuery = window.matchMedia('(prefers-color-scheme: dark)')
+    const handleDarkModeChange = (e: MediaQueryListEvent) => {
+      setIsDark(e.matches)
+    }
+    darkModeQuery.addEventListener('change', handleDarkModeChange)
+    return () => darkModeQuery.removeEventListener('change', handleDarkModeChange)
   }, [])
 
   useEffect(() => {
@@ -50,16 +62,19 @@ function App() {
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
-      alignItems: 'center'
+      alignItems: 'center',
+      backgroundColor: isDark ? '#1a1a1a' : '#ffffff',
+      transition: 'background-color 0.3s ease'
     }}>
       <div style={{ width: '100%', maxWidth: '800px' }}>
         <h1 style={{ 
           fontSize: isMobile ? '28px' : '36px', 
           marginBottom: '30px', 
-          color: '#1a1a1a',
+          color: isDark ? '#ffffff' : '#1a1a1a',
           fontWeight: '700',
           textAlign: 'center',
-          letterSpacing: '-0.5px'
+          letterSpacing: '-0.5px',
+          transition: 'color 0.3s ease'
         }}>
           URL整理アプリ
         </h1>
@@ -70,8 +85,9 @@ function App() {
           gap: '10px', 
           marginBottom: '30px',
           padding: isMobile ? '15px' : '20px',
-          backgroundColor: '#f5f5f5',
-          borderRadius: '8px'
+          backgroundColor: isDark ? '#2a2a2a' : '#f5f5f5',
+          borderRadius: '8px',
+          transition: 'background-color 0.3s ease'
         }}>
           <input 
             type="text" 
@@ -83,9 +99,11 @@ function App() {
               width: isMobile ? '100%' : 'auto',
               padding: '12px 15px',
               fontSize: '16px',
-              border: '1px solid #ddd',
+              border: isDark ? '1px solid #444' : '1px solid #ddd',
               borderRadius: '4px',
-              boxSizing: 'border-box'
+              boxSizing: 'border-box',
+              backgroundColor: isDark ? '#333' : '#fff',
+              color: isDark ? '#fff' : '#000'
             }}
           />
           <input 
@@ -98,9 +116,11 @@ function App() {
               width: isMobile ? '100%' : 'auto',
               padding: '12px 15px',
               fontSize: '16px',
-              border: '1px solid #ddd',
+              border: isDark ? '1px solid #444' : '1px solid #ddd',
               borderRadius: '4px',
-              boxSizing: 'border-box'
+              boxSizing: 'border-box',
+              backgroundColor: isDark ? '#333' : '#fff',
+              color: isDark ? '#fff' : '#000'
             }}
           />
           <button 
@@ -132,9 +152,10 @@ function App() {
                 justifyContent: 'space-between',
                 gap: isMobile ? '10px' : '0',
                 padding: '15px 20px',
-                backgroundColor: 'white',
-                border: '1px solid #e0e0e0',
-                borderRadius: '6px'
+                backgroundColor: isDark ? '#2a2a2a' : 'white',
+                border: isDark ? '1px solid #444' : '1px solid #e0e0e0',
+                borderRadius: '6px',
+                transition: 'background-color 0.3s ease, border-color 0.3s ease'
               }}
             >
               <a 
@@ -143,7 +164,7 @@ function App() {
                 rel="noopener noreferrer"
                 style={{
                   fontSize: '16px',
-                  color: '#007bff',
+                  color: isDark ? '#60a5fa' : '#007bff',
                   textDecoration: 'none',
                   flex: isMobile ? 'none' : 1,
                   wordBreak: 'break-all'
