@@ -28,7 +28,7 @@ function App() {
   }
 
   const deleteUrl = (id: number) => {
-    setUrls(urls.filter((item) => item.id !== id))
+    setUrls(urls.filter((item: any) => item.id !== id))
   }
 
   return (
@@ -86,7 +86,7 @@ function App() {
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-        {urls.map((item) => (
+        {urls.map((item: any) => (
           <div 
             key={item.id}
             style={{
